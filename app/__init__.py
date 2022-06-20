@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
 app.register_blueprint(map_app)
-dataFile = open("app\static\data.json" , encoding = "utf-8")
+dataFile = open("/root/zareen-flask-portfolio/app/static/data.json" , encoding = "utf-8")
 
 data = json.load(dataFile)
 
