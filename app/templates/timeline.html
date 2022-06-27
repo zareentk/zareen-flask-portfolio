@@ -2,6 +2,7 @@
 <html lang="en">
 
     <head>
+        <title>Timeline</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,11 +21,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
             integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+        
+        <link lang='sass' rel="stylesheet" href="./static/styles/timeline.css">
         <link rel="stylesheet" href="./static/styles/menu.css">
         <link rel='icon' href='./static/img/penguinpet.png' type='image/x-icon' />
     </head>
     <body>
+        <div class="title-box">
+            <h1>Timeline</h1>
+          </div>
         <div class="menu-wrap">
             <input type="checkbox" class="toggler">
             <div class="hamburger">
@@ -43,6 +48,47 @@
                 </div>
             </div>
         </div>
-        {% block content %}{% endblock %}
+        <div class="timeline-form">
+            <form id="form">
+                <div class="form-name">
+                  <label for="name">Enter your name: </label>
+                  <input type="text" name="name" id="name" required>
+                </div>
+                <div class="form-email">
+                  <label for="email">Enter your email: </label>
+                  <input type="email" name="email" id="email" required>
+                </div>
+                <div class="form-content">
+                    <label for="email">Enter your content: </label>
+                    <input type="text" name="content" id="text" required>
+                  </div>
+                <div class="form-submit">
+                  <input type="submit" value="Submit">
+                </div>
+              </form>    
+        </div>      
+        <script>
+            const form = document.getElementById('form');
+            form.addEventListener('submit', function(e) {
+                // Prevent default behavior:
+                e.preventDefault();
+                // Create new FormData object:
+                const formData = new FormData(form);
+                // Convert formData object to URL-encoded string:
+                const payload = new URLSearchParams(formData);
+                // Post the payload using Fetch:
+                fetch('/api/timeline_post', {
+                method: 'POST',
+                body: payload,
+                })
+                .then(res => res.json())
+                .then(data => console.log(data))
+            })
+        </script>
+        <div class="posts">
+            {% for post in posts %}
+            <h3> {{post}}</h3>
+            {% endfor %}
+        </div>
     </body>
-</html>
+    </html>

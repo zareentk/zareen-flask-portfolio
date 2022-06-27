@@ -7,7 +7,7 @@ import folium
 import os
 import json
 from dotenv import load_dotenv
-load_dotenv('example.env')
+load_dotenv('.env')
 
 app = Flask(__name__)
 app.register_blueprint(map_app)
@@ -65,6 +65,10 @@ def get_time_line_post():
 TimelinePost.select().order_by(TimelinePost.created_at.desc())
 		]
 	}	
+@app.route('/timeline')
+def timeline():
+		posts = [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
 
+		return render_template('timeline.html', title="Timeline", url=os.getenv("URL"), posts=posts, data=data)
 if __name__ == "__main__":
     app.run(debug=True)
