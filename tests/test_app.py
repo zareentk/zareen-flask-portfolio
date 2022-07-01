@@ -12,7 +12,18 @@ class AppTestCase(unittest.TestCase):
 		assert response.status_code == 200
 		html = response.get_data(as_text=True)
 		assert "<title>Home</title>" in html
-		assert '<h2>About Me</h2>' in html
+
+		
+		response = self.client.get("/")
+		assert response.status_code == 200
+		html = response.get_data(as_text=True)
+		assert "<h2>About Me</h2>" in html
+
+		response = self.client.get("/")
+		assert response.status_code == 200
+		html = response.get_data(as_text=True)
+		assert "<h3>About Me</h3>" in html
+
 
 	def test_timeline(self):
 		response = self.client.get('/api/timeline_post')
@@ -24,16 +35,33 @@ class AppTestCase(unittest.TestCase):
 
 		response = self.client.post('/api/timeline_post', data={'name': 'John', 'email':'john@example.com', 'content':'Hello world, I am John!'})
 		assert response.status_code == 200
+		
 		response = self.client.get('/api/timeline_post')
 		assert response.status_code == 200
 		assert response.is_json
 		json = response.get_json()
 		assert len(json['timeline_posts']) == 1
 
+		response = self.client.get("/api/timeline_post")
+		assert response.status_code == 200
+		html = response.get_data(as_text=True)
+		assert "timeline_post" in html
+
 		response = self.client.get('/timeline')
 		assert response.status_code == 200
 		html = response.get_data(as_text=True)
 		assert '<title>Timeline</title>' in html
+
+		response = self.client.get("/timeline")
+		assert response.status_code == 200
+		html = response.get_data(as_text=True)
+		assert "<form id=\"form\">" in html
+
+
+		response = self.client.get("/timeline")
+		assert response.status_code == 200
+		html = response.get_data(as_text=True)
+		assert "<h1>Timeline</h1>" in html
 
 	def test_malformed_timeline_post(self):
 		#post w/ no name
