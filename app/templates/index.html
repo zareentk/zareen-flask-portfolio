@@ -1,43 +1,44 @@
 <head>
-{% extends "base.html" %}
-
-{% block content %}
-<title>{% block title%}Home{% endblock %}</title>
-
-<link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-</head>
-<!--Madagascar penguin gifs slideshow-->
-<div class="slider">
-    <img src="./static/img/mainpage.png" class="slide">
-    <div class="title-box">
-
-    </div>
-</div>
-
-<body>
-    <div class="container">
-        <div class="about">
-            <div class="title">
-                <h2>About Me</h2>
-            </div>
-            <div class="box">
-                <div class="card">
-                    <a href="/{{allUsers['students'][2]['username']}}-portfolio"><img src="./static/img/zareen2.jpg"></a>
-                    <h3>About Me</h3>
-                    <h5><span class="major_color">{{ allUsers['students'][2]['education'][0]['major']}}<br></span><span class="college_color">
-                            @
-                            {{allUsers['students'][2]['name']}}</span></h5>
-                    <!--about section-->
-                     {% block about %}<h6>{{allUsers['students'][2]['about']}}</h6>{% endblock %}                                     
-                    <div class="pra">
-                            <a class="button-1" href="/{{allUsers['students'][2]['username']}}-portfolio">View Profile</a>
-                            <a class="button-2" href="https://drive.google.com/file/d/1Zns3a9iVMyE8-Lf_XsnNVzeOvZXKdQXF/view?usp=sharing">Resume</a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+    {% extends "base.html" %}
+    
+    {% block content %}
+    <title>{% block title%}Home{% endblock %}</title>
+    
+    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
+    </head>
+    <!--Madagascar penguin gifs slideshow-->
+    <div class="slider">
+        <img src="./static/img/mainpage.png" class="slide">
+        <div class="title-box">
+    
         </div>
     </div>
-</body>
-{% endblock %}
+    
+    <body>
+        <div class="container">
+            <div class="about">
+                <div class="title">
+                    <h2>About Me</h2>
+                </div>
+                <div class="box">
+                    <div class="card">
+                        <a href="/{{allUsers['students'][2]['username']}}-portfolio"><img src="./static/img/zareen2.jpg"></a>
+                        <h3>About Me</h3>
+                        <h5><span class="major_color">{{ allUsers['students'][2]['education'][0]['major']}}<br></span><span class="college_color">
+                                @
+                                {{allUsers['students'][2]['name']}}</span></h5>
+                        <!--about section-->
+                         {% block about %}<h6>{{allUsers['students'][2]['about']}}</h6>{% endblock %}                                     
+                        <div class="pra">
+                                <a class="button-1" href="/{{allUsers['students'][2]['username']}}-portfolio">View Profile</a>
+                                <a class="button-2" href="https://drive.google.com/file/d/1Zns3a9iVMyE8-Lf_XsnNVzeOvZXKdQXF/view?usp=sharing">Resume</a>
+                            </p>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </body>
+    {% endblock %}
+    
