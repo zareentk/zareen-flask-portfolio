@@ -87,7 +87,12 @@
         </script>
         <div class="posts">
             {% for post in posts %}
-            <h3> {{post}}</h3>
+            <h3> 
+                <span class="id">id: {{ post.id }}</span>
+                <span class="name"> Name: {{ post.name }}</span>
+                <span class="content">Content: {{ post.content }}</span>
+                <span class="datetime">Created at: {{ post.created_at }}</span>
+            </h3>
             {% endfor %}
         </div>
     </body>

@@ -1,4 +1,6 @@
+from statistics import mode
 from flask import Flask, render_template, request, json,  url_for, request, redirect, Response
+from pymysql import Time
 from app.map_app import map_app
 from peewee import *
 from playhouse.shortcuts import model_to_dict
@@ -82,10 +84,34 @@ def get_time_line_post():
 TimelinePost.select().order_by(TimelinePost.created_at.desc())
 		]
 	}	
+
+@app.route('/api/timeline_post/<int:id>', methods=['DELETE'])
+def delete_time_line_post(id):
+	id = request.form['id']
+	sql = TimelinePost.delete().where(TimelinePost.id == id)
+	sql.execute()
+
+	return{
+		'timeline_posts': {
+			model_to_dict(p)
+			for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+		}
+	}
+@app.route('/api/timeline_post/', methods=['DELETE'])
+def delete_all_posts():
+	sql = TimelinePost.delete()
+	sql.execute()
+	return {
+		'timeline_posts': [
+			model_to_dict(p)
+			for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+		]
+	}
+
 @app.route('/timeline')
 def timeline():
 		posts = [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
 
 		return render_template('timeline.html', title="Timeline", url=os.getenv("URL"), posts=posts, data=data)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host = 'localhost',debug = True)
