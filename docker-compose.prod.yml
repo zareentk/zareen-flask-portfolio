@@ -20,7 +20,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: jonasal/ngnix-certbot
+    image: jonasal/nginx-certbot
     restart: always
     environment:
       - CERTBOT_EMAIL=name@example.com
@@ -28,8 +28,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ngnix_secrets:/etc/letsencrypt
-      - ./user_conf.d:/etc/ngnix/user_conf.d
+      - nginx_secrets:/etc/letsencrypt
+      - ./user_conf.d:/etc/nginx/user_conf.d
     depends_on:
       - myportfolio
 
